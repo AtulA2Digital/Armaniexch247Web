@@ -61,9 +61,9 @@ const TeamRanking = () => {
       </div>
       <div>
         {
-          <TeamRankingTable
-            formatValue={t20Toggle ? "3" : testToggle ? "2" : "1"}
-          />
+          // <TeamRankingTable
+          //   formatValue={t20Toggle ? "3" : testToggle ? "2" : "1"}
+          // />
         }
       </div>
     </div>
