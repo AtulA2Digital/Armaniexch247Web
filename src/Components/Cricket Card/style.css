@@ -1,0 +1,111 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.cotainer-card {
+  background-color: #292929;
+  border-radius: 20px;
+}
+
+.inner-card1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  width: full;
+  height: 40px;
+  border-radius: 0 0 24px 24px;
+  border-bottom: 3px solid white;
+  background: red;
+  text-transform: uppercase;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.inner-card2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 1.8em;
+  padding: 2em 0;
+  width: 90%;
+  /* default width to be responsive */
+  max-width: 370px;
+  /* maximum width */
+  margin: auto;
+  /* centers the card horizontally */
+}
+
+/* Larger screens */
+@media (min-width: 768px) {
+  .inner-card2 {
+    width: 80%;
+    /* slightly wider on larger screens */
+  }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+  .inner-card2 {
+    width: 70%;
+    /* adjusted for desktop view */
+  }
+}
+
+/* Large desktop screens */
+@media (min-width: 1200px) {
+  .inner-card2 {
+    width: 370px;
+    /* fixed width for large screens, same as the maximum width */
+  }
+}
+
+.subinner {
+  display: flex;
+  font-size: 12px;
+  gap: 5px;
+  align-items: center;
+
+  text-transform: uppercase;
+  font-weight: 600;
+  color: white;
+}
+
+.subinner-sccore {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.subinner img {
+  width: 60px;
+  height: 60px;
+  /* border-radius: 7px; */
+  box-shadow: 0px 4px #000;
+}
+
+.subinner-middle {
+  display: flex;
+}
+
+.vs {
+  text-align: center;
+  font-size: 16px;
+  color: #b6ff00;
+}
+
+.vs hr {
+  margin-bottom: -12px;
+}
+
+.sub-inner-card {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3em;
+}

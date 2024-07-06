@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+body {
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: "Lato", sans-serif !important;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.blink-button {
+  /* background-color: red; */
+  animation: blink 1s linear infinite;
+}
+
+.match-info-bg {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./Images/Cricket-Pages/match-info-bg.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+/* ICC Rankings------------------------ */
+.options-wrapper ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #3ab949;
+  border-radius: 5px;
+  background-color: #2f3630;
+}
+
+.options-wrapper li:hover {
+  background-color: #0b2c0f;
+}
+
+.options-wrapper li:last-child {
+  border-bottom: none;
+}
+
+.teamRanking-table span,
+.playerRanking-table span {
+  width: 100px;
+}
+
+.playerRanking-table span.player-name {
+  width: 250px;
+}
+
+span.rank-field {
+  width: 50px;
+}
+
+@media (max-width: 600px) {
+  .ranking-type span {
+    min-width: 120px;
+    text-align: center;
+  }
+
+  .ranking-type {
+    max-width: 350px;
+    overflow-x: scroll;
+  }
+
+  .teamRanking-table span,
+  .playerRanking-table span {
+    font-size: 14px;
+  }
+
+  .teamRanking-table span,
+  .playerRanking-table span {
+    width: 60px;
+  }
+
+  .playerRanking-table span.player-name {
+    width: 120px;
+  }
+
+  span.rank-field {
+    width: 40px;
+  }
+
+  span.teamName-field {
+    width: 110px;
+  }
+}

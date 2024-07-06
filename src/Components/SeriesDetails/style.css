@@ -1,0 +1,17 @@
+/* .batting-stat span {
+    width: 10%;
+} */
+
+/* Add these classes to your Tailwind CSS configuration if not already available */
+.transition-max-height {
+    transition: max-height .8s ease-in-out;
+}
+
+.max-h-0 {
+    max-height: 0;
+}
+
+.max-h-screen {
+    max-height: 100vh;
+    /* Adjust according to your content's maximum height */
+}

@@ -1,0 +1,47 @@
+.info-hover {
+  transition: border-bottom 0.2s ease-in-out, color 0.3s ease-in-out;
+}
+
+.info-hover {
+  border-bottom: 3px solid #000;
+  /* Change to the desired hover color */
+  /* color: #3ab949; */
+  /* Change to the desired hover color */
+}
+
+.info-hover:hover {
+  border-bottom: 3px solid #3ab949;
+  /* Change to the desired hover color */
+  /* color: #3ab949; */
+  /* Change to the desired hover color */
+}
+
+.squad-wrapper span {
+  width: 60px;
+  display: inline-block;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .page-info-tabs {
+    overflow-x: scroll;
+    display: flex;
+    align-items: center;
+  }
+
+  .page-info-tabs span {
+    position: relative;
+    min-width: 140px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-info-tabs {
+    max-width: 360px;
+  }
+
+  .squad-wrapper span {
+    width: 40px;
+  }
+}

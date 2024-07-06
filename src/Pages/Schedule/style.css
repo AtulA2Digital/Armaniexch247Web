@@ -1,0 +1,40 @@
+.match-type-tabs button {
+    min-width: 180px;
+}
+
+.match-status-tabs button {
+    min-width: 150px;
+}
+
+@media (max-width:1200px) {
+    .match-type-tabs {
+        display: flex;
+        max-width: 1000px;
+        overflow-x: scroll;
+    }
+
+    .match-type-tabs button {
+        min-width: 190px;
+    }
+}
+
+@media (max-width:900px) {
+    .match-type-tabs {
+        max-width: 750px;
+    }
+}
+
+@media (max-width:600px) {
+    .match-status-tabs button {
+        min-width: 90px;
+    }
+
+    .match-type-tabs {
+        max-width: 360px;
+    }
+
+    .match-type-tabs button {
+        min-width: 140px;
+        font-size: 14px;
+    }
+}
