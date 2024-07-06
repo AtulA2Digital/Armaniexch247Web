@@ -51,7 +51,7 @@ const TeamRanking = () => {
                 }}
                 onClick={format.clickEvent}
                 key={ind}
-                className="info-hover bg-[#ffffff]  px-6 py-2 rounded-[32px] font-[600] cursor-pointer  "
+                className="info-hover bg-[#ffffff]  px-9 py-2 rounded-[32px] font-[600] cursor-pointer  "
               >
                 {format.typename}
               </span>
