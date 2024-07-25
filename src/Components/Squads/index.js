@@ -83,7 +83,7 @@ const Squads = () => {
   return (
     <>
       {teams ? (
-        <div className="my-10 py-8 mx-4 bg-[#000000] rounded-[18px] ">
+        <div className="md:my-6 py-8 mx-4 bg-[#000000] rounded-[18px] ">
           <div className="bg-gradient-to-r from-[#39441d] to-[#141815] rounded-lg py-3 mb-5 sm:w-[90%] mx-auto">
             <p className="text-white md:text-[30px] text-[24px] font-semibold px-4 flex items-center justify-center gap-x-4 mb-0">
               <img

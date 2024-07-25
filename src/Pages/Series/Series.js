@@ -22,6 +22,7 @@ const Series = () => {
   const filteredMatches = series_list.filter(
     (match) => match.series_type === activeSeriesList
   );
+  console.log("filteredMatches - ", filteredMatches);
 
   const groupMatchesByDate = (matches) => {
     return matches.reduce((acc, match) => {
@@ -35,10 +36,10 @@ const Series = () => {
   };
 
   let matchesGroupedByDate = groupMatchesByDate(filteredMatches);
-  // console.log("matchesGroupedByDate - ", matchesGroupedByDate);
   if (getAllMatchesList) {
     matchesGroupedByDate = groupMatchesByDate(series_list);
   }
+  console.log("matchesGroupedByDate - ", matchesGroupedByDate);
 
   return (
     <div className="xl:w-[90%] w-[95%] mx-auto px-2 my-10 py-7">
@@ -58,9 +59,8 @@ const Series = () => {
             setGetAllMatchesList(true);
             setActiveSeriesList();
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            getAllMatchesList ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${getAllMatchesList ? "active" : ""
+            }`}
         >
           All
         </button>
@@ -69,9 +69,8 @@ const Series = () => {
             setActiveSeriesList("International");
             setGetAllMatchesList(false);
           }}
-          className={`toggle-button info-hover bg-[#ffffff] border-bottom-[3px] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            activeSeriesList === "International" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] border-bottom-[3px] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${activeSeriesList === "International" ? "active" : ""
+            }`}
         >
           International
         </button>
@@ -80,9 +79,8 @@ const Series = () => {
             setActiveSeriesList("Domestic");
             setGetAllMatchesList(false);
           }}
-          className={`toggle-button info-hover bg-[#ffffff] border-bottom-[3px] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            activeSeriesList === "Domestic" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] border-bottom-[3px] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${activeSeriesList === "Domestic" ? "active" : ""
+            }`}
         >
           Domestic & Others
         </button>
@@ -91,9 +89,8 @@ const Series = () => {
             setActiveSeriesList("League");
             setGetAllMatchesList(false);
           }}
-          className={`toggle-button info-hover bg-[#ffffff] border-bottom-[3px] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            activeSeriesList === "League" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] border-bottom-[3px] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${activeSeriesList === "League" ? "active" : ""
+            }`}
         >
           League
         </button>
@@ -102,9 +99,8 @@ const Series = () => {
             setActiveSeriesList("Women");
             setGetAllMatchesList(false);
           }}
-          className={`toggle-button info-hover bg-[#ffffff] border-bottom-[3px] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            activeSeriesList === "Women" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] border-bottom-[3px] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${activeSeriesList === "Women" ? "active" : ""
+            }`}
         >
           Women
         </button>

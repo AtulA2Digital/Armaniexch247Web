@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TeamRankingTable from "./TeamRankingTable";
+import TeamRankingTable from "./TeamRanking/TeamRankingTable";
 
 const TeamRanking = () => {
   const [odiToggle, setOdiToggle] = useState(true);
@@ -51,7 +51,7 @@ const TeamRanking = () => {
                 }}
                 onClick={format.clickEvent}
                 key={ind}
-                className="info-hover bg-[#ffffff]  px-9 py-2 rounded-[32px] font-[600] cursor-pointer  "
+                className="info-hover bg-[#ffffff]  px-6 py-2 rounded-[32px] font-[600] cursor-pointer  "
               >
                 {format.typename}
               </span>
@@ -61,9 +61,9 @@ const TeamRanking = () => {
       </div>
       <div>
         {
-          // <TeamRankingTable
-          //   formatValue={t20Toggle ? "3" : testToggle ? "2" : "1"}
-          // />
+          <TeamRankingTable
+            formatValue={t20Toggle ? "3" : testToggle ? "2" : "1"}
+          />
         }
       </div>
     </div>

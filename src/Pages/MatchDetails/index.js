@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { postAPIHandler } from "../../Api/api";
 import MatchInfo from "../../Components/Match Info";
 import PitchReport from "../../Components/PitchReport/PitchReport";
@@ -82,7 +82,7 @@ const MatchDetails = () => {
 
     const interval = setInterval(() => {
       GetLiveMatchInfo(matchId);
-    }, 5000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [matchId]);
@@ -192,7 +192,7 @@ const MatchDetails = () => {
   };
   return (
     <>
-      {liveInfo && (
+      {liveInfo && matchInfo && (
         <div
           key={liveInfo?.match_id}
           className="bg-cover gap-6 pt-20 pb-10 flex flex-col items-center match-info-bg bg-center"
@@ -209,8 +209,8 @@ const MatchDetails = () => {
                   matchStatus === "LIVE"
                     ? "rgb(58, 185, 73)"
                     : matchStatus === "UPCOMING"
-                    ? "blue"
-                    : "red",
+                      ? "blue"
+                      : "red",
               }}
             >
               {matchStatus}
@@ -281,7 +281,8 @@ const MatchDetails = () => {
                   </span>
                 </div>
               </div>
-              {/* Team Countdown */}
+
+              {/* Team Countdown & Toss & Others*/}
               <div className="lg:text-[18px] text-[15px] text-white font-[500] pt-4">
                 {/* {liveInfo && liveInfo?.data && liveInfo?.data.result
                   ? null
@@ -290,21 +291,32 @@ const MatchDetails = () => {
                   {liveInfo.result.length > 0
                     ? capitalizeSentence(liveInfo.result)
                     : liveInfo.trail_lead
-                    ? capitalizeSentence(liveInfo.trail_lead)
-                    : liveInfo.toss.length > 0
-                    ? capitalizeSentence(liveInfo.toss)
-                    : countdown}
+                      ? capitalizeSentence(liveInfo.trail_lead)
+                      : liveInfo.toss.length > 0
+                        ? capitalizeSentence(liveInfo.toss)
+                        : countdown}
                 </span>
               </div>
-              {/* Toss & Others */}
-              <div className=" bg-[#a0a0a045] w-full py-2 rounded-md mt-5">
+
+              {/* Series Name With Link */}
+              <div className="lg:text-[18px] text-[15px] text-white font-[500]  mt-4">
+                <Link
+                  className="text-decoration-underline text-[#3ab949] cursor-pointer blink-button"
+                  to={`/series-details/${seriesId}`}
+                >
+                  Series Details
+                </Link>
+              </div>
+
+              {/* Match ANd Series Name  */}
+              <div className=" bg-[#a0a0a045] w-full py-2 rounded-md mt-3">
                 {matchInfo?.data.matchs}, {matchInfo?.data.place},{" "}
                 {matchInfo?.data.match_date}, {matchInfo?.data.series}
               </div>
             </div>
           )}
-
           {/* Live Card end */}
+
           <div className="pt-14 space-x-3 lg:w-[100%] sm:w-[700px] mx-auto lg:text-center page-info-tabs">
             <span
               onClick={handleInfo}

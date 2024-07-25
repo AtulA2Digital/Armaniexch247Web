@@ -59,9 +59,8 @@ const SeriesDetails = () => {
           onClick={() => {
             setSeriesDataTab("Matches");
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${
-            seriesDataTab === "Matches" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${seriesDataTab === "Matches" ? "active" : ""
+            }`}
         >
           Matches
         </button>
@@ -69,9 +68,8 @@ const SeriesDetails = () => {
           onClick={() => {
             setSeriesDataTab("Stats");
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${
-            seriesDataTab === "Stats" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${seriesDataTab === "Stats" ? "active" : ""
+            }`}
         >
           Stats
         </button>
@@ -256,9 +254,8 @@ const SeriesDetails = () => {
               onClick={() => {
                 setStatType("Batting");
               }}
-              className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${
-                statType === "Batting" ? "active" : ""
-              }`}
+              className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${statType === "Batting" ? "active" : ""
+                }`}
             >
               Batting
             </button>
@@ -266,9 +263,8 @@ const SeriesDetails = () => {
               onClick={() => {
                 setStatType("Bowling");
               }}
-              className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${
-                statType === "Bowling" ? "active" : ""
-              }`}
+              className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${statType === "Bowling" ? "active" : ""
+                }`}
             >
               Bowling
             </button>

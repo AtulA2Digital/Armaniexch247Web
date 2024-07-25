@@ -8,7 +8,7 @@ import { postAPIHandler } from "../../Api/api";
 const Scoreboard = () => {
   const { matchId } = useParams();
   const [teamScoreCard, setTeamScoreCard] = useState([]);
-  // console.log("teamScoreCard - ", teamScoreCard);
+  console.log("teamScoreCard - ", teamScoreCard);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -70,8 +70,8 @@ const Scoreboard = () => {
                       {team.team.inning === 1
                         ? team.team.inning + "st "
                         : team.team.inning === 2
-                        ? team.team.inning + "nd "
-                        : team.team.inning + "rd "}
+                          ? team.team.inning + "nd "
+                          : team.team.inning + "rd "}
                       )
                     </span>
                   </p>

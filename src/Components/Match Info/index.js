@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Link, useParams } from "react-router-dom";
-import { DataRange, Location } from "../../icons";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { postAPIHandler } from "../../Api/api";
@@ -10,11 +9,13 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 const MatchInfo = ({ status }) => {
   // Match Info Api Variable
-  const { matchId, team_a_id, team_b_id } = useParams();
+  const { matchId, team_a_id, team_b_id, seriesId } = useParams();
   const [matchInfo, setMatchInfo] = useState(null);
   // console.log("matchInfo - ", matchInfo);
   const [playing11, setPlaying11] = useState(null);
   // console.log("playing11 length - ", playing11 && playing11.length);
+  const [MOTS, setMOTS] = useState();
+  // console.log("MOTS - ", MOTS);
   const [loading, setLoading] = useState(false);
 
   // console.log("status - ", status);
@@ -24,6 +25,7 @@ const MatchInfo = ({ status }) => {
     setTimeout(() => {
       GetMatchDetails(matchId);
       GetPlaying11(matchId);
+      GetMOTS();
     }, 1000);
   }, [matchId]);
 
@@ -66,6 +68,15 @@ const MatchInfo = ({ status }) => {
     setPlaying11(response.data);
     setLoading(false);
   };
+  const GetMOTS = async () => {
+    const formData = new FormData();
+    formData.append("series_id", seriesId);
+
+    const response = await postAPIHandler("manOfTheSeries", formData);
+    // console.log("GetMOTS response-->", response.data, response.data.length);
+
+    setMOTS(response.data);
+  };
 
   const Playing11Data = (team) => {
     // console.log("Playing11Data called");
@@ -86,13 +97,13 @@ const MatchInfo = ({ status }) => {
                 className="player-details text-center xl:w-[33%] md:w-[24%] w-[49%]"
                 key={ind}
               >
-                <Link to={`/player-profiles/${data.player_id}`} className="">
+                <Link to={`/player-profiles/${data.player_id}`} className="text-[#fff] hover:text-[#3ab949]">
                   <img
                     src={data.image}
                     alt="team img"
                     className="rounded-full w-[80px] h-[80px] object-cover mx-auto object-top"
                   />
-                  <h5 className="team-name mt-2 mb-0 text-[#fff]">
+                  <h5 className="team-name mt-2 mb-0">
                     {data.name}
                   </h5>
                   <p className="text-[14px] text-[#777777]">{data.play_role}</p>
@@ -128,35 +139,30 @@ const MatchInfo = ({ status }) => {
 
     return windowSize;
   };
+
   const size = useWindowSize();
   // console.log("display size - ", size);
   const isMobile = size.width < 768;
-  // const width = isMobile ? `${progress1}%` : `${progress2}%`;
-  // const progress1Width = isMobile
-  //   ? `${progress1 > progress2 ? "60%" : "40%"}`
-  //   : `${progress1}%`;
   const progress1Width = isMobile
-    ? `${
-        progress1 === 0 || progress2 === 0
-          ? progress1 + "%"
-          : progress1 > progress2
-          ? "60%"
-          : "40%"
-      }`
+    ? `${progress1 === 0 || progress2 === 0
+      ? progress1 + "%"
+      : progress1 > progress2
+        ? "60%"
+        : "40%"
+    }`
     : `${progress1}%`;
   const progress2Width = isMobile
-    ? `${
-        progress1 === 0 || progress2 === 0
-          ? progress2 + "%"
-          : progress2 > progress1
-          ? "60%"
-          : "40%"
-      }`
+    ? `${progress1 === 0 || progress2 === 0
+      ? progress2 + "%"
+      : progress2 > progress1
+        ? "60%"
+        : "40%"
+    }`
     : `${progress2}%`;
   return (
     <>
       {matchInfo ? (
-        <div className="my-10 py-8">
+        <div className="md:my-6 py-8">
           {/* Match Details */}
           <div className="flex flex-wrap xl:justify-between items-center mb-10 py-4 mx-4 md:px-7 px-3 gap-10 shadow-2xl border-2 rounded-[18px] border-[#39441d]">
             <div className="space-y-4 ">
@@ -169,7 +175,12 @@ const MatchInfo = ({ status }) => {
                     Series
                   </p>
                   <p className="text-[#C9C7C7] lg:text-[18px] font-medium ">
-                    {matchInfo.data.series}
+                    <Link
+                      className="text-[#C9C7C7] hover:text-[#3ab949]"
+                      to={`/series-details/${seriesId}`}
+                    >
+                      {matchInfo.data.series}
+                    </Link>
                   </p>
                 </div>
                 <div className=" flex md:gap-1 gap-3">
@@ -206,25 +217,35 @@ const MatchInfo = ({ status }) => {
                       Player Of The Match
                     </p>
                     <p className="text-[#C9C7C7] lg:text-[18px] font-medium ">
-                      {matchInfo.data.man_of_match_player}
+                      <Link
+                        className="text-[#C9C7C7] hover:text-[#3ab949]"
+                        to={`/player-profiles/${matchInfo.data.man_of_match}`}
+                      >
+                        {matchInfo.data.man_of_match_player}
+                      </Link>
                     </p>
                   </div>
                 )}
                 {/* Player Of The Series---- */}
-                {/* {matchInfo.data.man_of_match_player.length > 0 && (
+                {MOTS !== undefined && MOTS.length !== 0 && (
                   <div className="flex md:gap-1 gap-3">
                     <p className="text-[#777777] lg:text-[18px] font-medium ">
                       Player Of The Series
                     </p>
-                    <p className="text-[#C9C7C7] lg:text-[18px] font-medium ">
-                      {matchInfo.data.man_of_match_player}
+                    <p className="text-[#C9C7C7] lg:text-[18px] font-medium">
+                      <Link
+                        className="text-[#C9C7C7] hover:text-[#3ab949]"
+                        to={`/player-profiles/${MOTS.player.player_id}`}
+                      >
+                        {MOTS.player.name}
+                      </Link>
                     </p>
                   </div>
-                )} */}
+                )}
               </div>
             </div>
             <div className="flex flex-wrap gap-4 ">
-              <div className="flex md:flex-col items-center md:justify-start justify-center gap-1 bg-[#181919] lg:px-16 w-full lg:w-[200px] py-2 text-center text-[14px] font-medium text-[#C9C7C7] rounded-[12px] ">
+              <div className="flex md:flex-col items-center md:justify-start justify-center gap-1 bg-[#181919] lg:px-16 w-full lg:w-[200px] py-2 text-center text-[14px] font-medium text-[#C9C7C7] rounded-[12px]">
                 {/* <DataRange /> */}
                 <CalendarMonthIcon
                   style={{ fontSize: "30px", color: "#fff" }}
@@ -232,12 +253,15 @@ const MatchInfo = ({ status }) => {
                 <span className="">{matchInfo.data.match_date}</span>
                 <span className="">{matchInfo.data.match_time}</span>
               </div>
-              <div className="flex flex-col items-center justify-center gap-1 bg-[#181919] lg:px-16 w-full lg:w-[400px] py-2 text-center text-[14px] font-medium rounded-[12px] ">
+              <Link
+                className="text-[#fff] hover:text-[#3ab949] flex flex-col items-center justify-center gap-1 bg-[#181919] lg:px-16 w-full lg:w-[400px] py-2 text-center text-[14px] font-medium rounded-[12px]"
+                to={`/venue-details/${matchInfo.data.venue_id}`}
+              >
                 {/* <Location style={{ fontSize: "30px" }} /> */}
                 <LocationOnIcon style={{ fontSize: "32px" }} />
                 <span className="">{matchInfo.data.venue}</span>
                 {/* <span className="">{matchInfo.data.place}</span> */}
-              </div>
+              </Link>
             </div>
           </div>
 
@@ -442,9 +466,8 @@ const MatchInfo = ({ status }) => {
                       className="float-start"
                     >
                       <span
-                        className={`text-[14px] font-[800] ps-2 text-white ${
-                          progress1 > 0 ? "block" : "hidden"
-                        }`}
+                        className={`text-[14px] font-[800] ps-2 text-white ${progress1 > 0 ? "block" : "hidden"
+                          }`}
                       >
                         {progress1}% {matchInfo.data.team_a_short}
                       </span>
@@ -460,9 +483,8 @@ const MatchInfo = ({ status }) => {
                       className={`float-end`}
                     >
                       <span
-                        className={`text-[14px] font-[800] text-black text-end pe-2 ${
-                          progress2 > 0 ? "block" : "hidden"
-                        } `}
+                        className={`text-[14px] font-[800] text-black text-end pe-2 ${progress2 > 0 ? "block" : "hidden"
+                          } `}
                       >
                         {progress2}% {matchInfo.data.team_b_short}
                       </span>
@@ -611,13 +633,12 @@ const MatchInfo = ({ status }) => {
                       (result, index) => (
                         <p
                           key={index}
-                          className={`text-white mb-0 rounded-full w-[25px] flex items-center justify-center ${
-                            result === "W"
-                              ? "bg-[#3AB949]"
-                              : result === "L"
+                          className={`text-white mb-0 rounded-full w-[25px] flex items-center justify-center ${result === "W"
+                            ? "bg-[#3AB949]"
+                            : result === "L"
                               ? "bg-[#E1282B]"
                               : ""
-                          }`}
+                            }`}
                         >
                           {result}
                         </p>
@@ -643,13 +664,12 @@ const MatchInfo = ({ status }) => {
                       (result, index) => (
                         <p
                           key={index}
-                          className={`text-white mb-0 rounded-full w-[25px] flex items-center justify-center ${
-                            result === "W"
-                              ? "bg-[#3AB949]"
-                              : result === "L"
+                          className={`text-white mb-0 rounded-full w-[25px] flex items-center justify-center ${result === "W"
+                            ? "bg-[#3AB949]"
+                            : result === "L"
                               ? "bg-[#E1282B]"
                               : ""
-                          }`}
+                            }`}
                         >
                           {result}
                         </p>
@@ -682,13 +702,12 @@ const MatchInfo = ({ status }) => {
                     {matchInfo.data.forms.team_a.map((result, index) => (
                       <p
                         key={index}
-                        className={`text-white mb-0 rounded-full w-[25px] flex items-center justify-center ${
-                          result === "W"
-                            ? "bg-[#3AB949]"
-                            : result === "L"
+                        className={`text-white mb-0 rounded-full w-[25px] flex items-center justify-center ${result === "W"
+                          ? "bg-[#3AB949]"
+                          : result === "L"
                             ? "bg-[#E1282B]"
                             : ""
-                        }`}
+                          }`}
                       >
                         {result}
                       </p>
@@ -712,13 +731,12 @@ const MatchInfo = ({ status }) => {
                     {matchInfo.data.forms.team_b.map((result, index) => (
                       <p
                         key={index}
-                        className={`text-white mb-0 rounded-full w-[25px] flex items-center justify-center ${
-                          result === "W"
-                            ? "bg-[#3AB949]"
-                            : result === "L"
+                        className={`text-white mb-0 rounded-full w-[25px] flex items-center justify-center ${result === "W"
+                          ? "bg-[#3AB949]"
+                          : result === "L"
                             ? "bg-[#E1282B]"
                             : ""
-                        }`}
+                          }`}
                       >
                         {result}
                       </p>

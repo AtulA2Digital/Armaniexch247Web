@@ -13,6 +13,7 @@ import ICC_Rankings from "./Pages/ICC_Rankings";
 import SeriesDetails from "./Pages/SeriesDetails";
 import Player_Profiles from "./Pages/Player_Profiles";
 import Schedule from "./Pages/Schedule";
+import Venue_Details from "./Pages/Venue_Details";
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
               <Route
                 path="/player-profiles/:playerId"
                 element={<Player_Profiles />}
+              />
+              <Route
+                path="/venue-details/:venueId"
+                element={<Venue_Details />}
               />
               <Route path="/icc-rankings" element={<ICC_Rankings />} />
               <Route
