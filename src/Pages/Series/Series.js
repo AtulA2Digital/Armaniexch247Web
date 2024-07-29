@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-
 import Squads_Icon from "../../Images/Cricket-Pages/team-white.png";
 import { getFetchSeriesList } from "../../redux/CricketApi/actions";
 import { Link } from "react-router-dom";
@@ -22,7 +19,7 @@ const Series = () => {
   const filteredMatches = series_list.filter(
     (match) => match.series_type === activeSeriesList
   );
-  console.log("filteredMatches - ", filteredMatches);
+  // console.log("filteredMatches - ", filteredMatches);
 
   const groupMatchesByDate = (matches) => {
     return matches.reduce((acc, match) => {
@@ -39,7 +36,7 @@ const Series = () => {
   if (getAllMatchesList) {
     matchesGroupedByDate = groupMatchesByDate(series_list);
   }
-  console.log("matchesGroupedByDate - ", matchesGroupedByDate);
+  // console.log("matchesGroupedByDate - ", matchesGroupedByDate);
 
   return (
     <div className="xl:w-[90%] w-[95%] mx-auto px-2 my-10 py-7">
@@ -140,11 +137,6 @@ const Series = () => {
           ))}
         </div>
       ))}
-      {/* {!series_list || series_list.length === 0 ? (
-        <Box className="px-3 py-4 my-5 text-center">
-          <CircularProgress style={{ color: "#B6FF00" }} />
-        </Box>
-      ) : null} */}
     </div>
   );
 };

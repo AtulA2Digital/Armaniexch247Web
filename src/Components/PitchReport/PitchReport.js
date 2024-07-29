@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Box, CircularProgress } from "@mui/material";
 // weather Icons------------
@@ -14,13 +13,12 @@ import Capacity from "../../Images/Cricket-Pages/Grounds/capacity.png";
 import Ends from "../../Images/Cricket-Pages/Grounds/Ends.png";
 import Known_As from "../../Images/Cricket-Pages/Grounds/know as.png";
 import Location from "../../Images/Cricket-Pages/Grounds/location.png";
-import Name from "../../Images/Cricket-Pages/Grounds/name.png";
 import Opened from "../../Images/Cricket-Pages/Grounds/opened.png";
 import Profile from "../../Images/Cricket-Pages/Grounds/profile.png";
 import Timezone from "../../Images/Cricket-Pages/Grounds/timezone.png";
 import Floodlights from "../../Images/Cricket-Pages/Grounds/floodlight.png";
 import { postAPIHandler } from "../../Api/api";
-import { getMatchInfo } from "../../redux/CricketApi/actions";
+
 
 const PitchReport = () => {
   const { matchId } = useParams();
@@ -31,7 +29,6 @@ const PitchReport = () => {
   const [venueDetails, setVenueDetails] = useState(null);
   // console.log("venueDetails - ", venueDetails);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   // Fetch match details
   useEffect(() => {
@@ -54,12 +51,6 @@ const PitchReport = () => {
       <Box className="px-3 py-4 my-5 text-center">
         <CircularProgress style={{ color: "#3ab949" }} />
       </Box>
-    );
-  if (error)
-    return (
-      <div className="text-center text-white py-4 my-10 bg-[#242424] w-50 mx-auto rounded-lg">
-        No Data Found
-      </div>
     );
 
   // Match Info API-----------------
@@ -85,9 +76,9 @@ const PitchReport = () => {
     setLoading(false);
   };
   return (
-    <div>
+    <>
       {matchInfo && (
-        <div className="mx-4 flex md:flex-row flex-col flex-wrap justify-between py-8 gap-6 bg-[#000000] rounded-[18px] my-10 ">
+        <div className="md:my-6 py-8 mx-4 gap-6 d-flex flex-col">
           {/* Venue Scoring Pattern */}
           {/* <div className="lg:w-[49%] md:w-[48%]">
             <div className="bg-[#181919] rounded-[12px] p-4 mb-4">
@@ -375,7 +366,7 @@ const PitchReport = () => {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -68,6 +68,7 @@ const MatchInfo = ({ status }) => {
     setPlaying11(response.data);
     setLoading(false);
   };
+
   const GetMOTS = async () => {
     const formData = new FormData();
     formData.append("series_id", seriesId);
@@ -197,6 +198,15 @@ const MatchInfo = ({ status }) => {
                   </p>
                   <p className="text-[#C9C7C7] lg:text-[18px] font-medium ">
                     {matchInfo.data.matchs}
+                  </p>
+                </div>
+                <div className="flex md:gap-1 gap-3">
+                  <p className="text-[#777777] lg:text-[18px] font-medium ">
+                    Match Type
+                  </p>
+                  <p className="text-[#C9C7C7] lg:text-[18px] font-medium ">
+                    {matchInfo.data.match_type}
+                    {matchInfo.data.is_hundred === 2 && <span className="text-[16px]"> (100 Balls)</span>}
                   </p>
                 </div>
                 {/* Toss---- */}

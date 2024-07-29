@@ -8,8 +8,8 @@ import { postAPIHandler } from "../../../Api/api";
 
 const Squads = () => {
   const { seriesId } = useParams();
-
   const [seriesSquads, setSeriesSquads] = useState([]);
+  // console.log("seriesSquads - ", seriesSquads);
   const [loading, setLoading] = useState(true);
   const [dropdownStatus, setDropdownStatus] = useState({});
   const contentRefs = useRef([]);
@@ -125,11 +125,13 @@ const Squads = () => {
             </div>
           </div>
         ))
-      ) : (
-        <div className="text-center text-white py-4 my-4 bg-[#242424] w-50 mx-auto rounded-lg">
-          No Data Found
-        </div>
-      )}
+      )
+        : (
+          <div className="text-center text-white py-4 my-4 bg-[#242424] w-50 mx-auto rounded-lg">
+            No Data Found
+          </div>
+        )
+      }
     </>
   );
 };

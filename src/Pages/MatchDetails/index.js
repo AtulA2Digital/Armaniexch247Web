@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { postAPIHandler } from "../../Api/api";
+import { getAPIHandler, postAPIHandler } from "../../Api/api";
 import MatchInfo from "../../Components/Match Info";
 import PitchReport from "../../Components/PitchReport/PitchReport";
 import Squads from "../../Components/Squads";
@@ -19,9 +19,43 @@ const MatchDetails = () => {
   const [pointsTableToggle, setPointsTableToggle] = useState(false);
   const [scoreboardToggle, setScoreboardToggle] = useState(false);
   const [commentaryToggle, setCommentaryToggle] = useState(false);
-  const [matchStatus, setMatchStatus] = useState("UPCOMING");
-  // console.log("matchStatus - ", matchStatus);
+  const [teamScoreCard, setTeamScoreCard] = useState([]);
+  const [liveMatchesList, setLiveMatchesList] = useState([]);
+  // console.log("liveMatchesList - ", liveMatchesList);
+  const [matchStatus, setMatchStatus] = useState();
+  const [matchIsLive, setMatchIsLive] = useState(false);
+  // console.log("matchIsLive - ", matchIsLive);
   const { matchId, seriesId } = useParams();
+
+
+  useEffect(() => {
+    // Filter Live Match------------------
+    const LiveMatchData = liveMatchesList.filter((match) => {
+      return match.match_id == matchId;
+    })
+    // console.log("LiveMatchData length - ", LiveMatchData.length);
+    // console.log("LiveMatchData - ", LiveMatchData);
+
+
+    // -----------------------------------
+    if (LiveMatchData.length > 0) {
+      setMatchIsLive(true);
+      setMatchStatus("LIVE")
+    }
+    else {
+      setMatchIsLive(false);
+      if (liveInfo && !matchIsLive) {
+        if (liveInfo.result) {
+          setMatchStatus("FINISHED");
+        } else {
+          setMatchStatus("UPCOMING");
+        }
+      }
+    }
+
+  }, [liveMatchesList, matchInfo])
+
+
   const handlePointsTable = () => {
     setPointsTableToggle(true);
     setinfoToggle(false);
@@ -82,6 +116,8 @@ const MatchDetails = () => {
 
     const interval = setInterval(() => {
       GetLiveMatchInfo(matchId);
+      GetTeamScorecard(matchId);
+      GetLiveMatchesList();
     }, 1000);
 
     return () => clearInterval(interval);
@@ -145,19 +181,6 @@ const MatchDetails = () => {
     }
   }, [matchInfo]);
 
-  // According to match(LIVE, UPCOMING, FINISHED)
-  useEffect(() => {
-    if (liveInfo) {
-      if (liveInfo.result) {
-        setMatchStatus("FINISHED");
-      } else if (liveInfo.toss) {
-        setMatchStatus("LIVE");
-      } else {
-        setMatchStatus("UPCOMING");
-      }
-    }
-  }, [matchInfo]);
-
   // Match Live Info--------------
   const GetLiveMatchInfo = async (value) => {
     const formData = new FormData();
@@ -172,10 +195,26 @@ const MatchDetails = () => {
   const GetMatchInfo = async (value) => {
     const formData = new FormData();
     formData.append("match_id", value);
-
     const response = await postAPIHandler("matchInfo", formData);
     // console.log("response-->", response);
     setMatchInfo(response);
+  };
+
+  const GetTeamScorecard = async (val) => {
+    const formData = new FormData();
+    formData.append("match_id", val);
+    const response = await postAPIHandler("scorecardByMatchId", formData);
+    // console.log("scorecardByMatchId resp - ", response);
+    setTeamScoreCard(response.data);
+  };
+
+  // Match Info API-----------------
+  const GetLiveMatchesList = async (value) => {
+    const response = await getAPIHandler("liveMatchList");
+    // console.log("GetLiveMatchesList response-->", response);
+    setLiveMatchesList(response.data);
+
+
   };
 
   const capitalizeSentence = (sentence) => {
@@ -199,7 +238,8 @@ const MatchDetails = () => {
         >
           <h1 className="md:text-[30px] text-white text-center font-[600] md:px-[0] px-[10px]">
             {liveInfo?.team_a_short} vs {liveInfo?.team_b_short},{" "}
-            {matchInfo?.data.matchs}
+            {matchInfo?.data.matchs} <br />
+            <span className="text-[18px] text-[#ffffffba]">{matchInfo.data.match_type} Match {matchInfo.data.is_hundred === 2 && <span className="text-[14px]">(100 Balls)</span>}</span>
           </h1>
           <p>
             <span
@@ -221,12 +261,12 @@ const MatchDetails = () => {
           {liveInfo && (
             <div className="bg-[#000000a8] rounded-[12px] lg:w-[45%] w-[90%] md:px-5 px-[20px] py-4 text-center ">
               {/* Team */}
-              <div className="flex justify-between ">
+              {(liveInfo.last4overs) || (liveInfo.toss.length === 0) ? (<div className="flex justify-between">
                 <div className="space-y-8">
                   <div className="flex items-center gap-2">
                     <img
                       className=" w-[30px] h-[30px] rounded-full object-cover"
-                      src={liveInfo.team_a_img}
+                      src={liveInfo.team_a_img} alt=""
                     />
                     <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0">
                       {liveInfo.team_a}
@@ -235,7 +275,7 @@ const MatchDetails = () => {
                   <div className="flex items-center gap-2">
                     <img
                       className=" w-[30px] h-[30px] rounded-full object-cover"
-                      src={liveInfo.team_b_img}
+                      src={liveInfo.team_b_img} alt=""
                     />
 
                     <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0">
@@ -280,7 +320,64 @@ const MatchDetails = () => {
                     )}
                   </span>
                 </div>
-              </div>
+              </div>) :
+                (<>
+                  {teamScoreCard.length === undefined && (<>
+                    {Object.entries(teamScoreCard.scorecard).map(([groupName, inning], ind) => {
+                      return (<div className="flex items-center justify-between gap-2 mb-4 pb-2" key={ind}>
+                        <div className="flex items-center gap-2">
+                          <img
+                            className=" w-[30px] h-[30px] rounded-full object-cover"
+                            src={inning.team.flag} alt=""
+                          />
+                          <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0 md:block hidden">
+                            {inning.team.name}
+                          </p>
+                          <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0 md:hidden block">
+                            {inning.team.short_name}
+                          </p>
+                        </div>
+                        <p className="mb-0">
+                          <span className="lg:text-[18px] text-[15px] text-white font-[500] mb-0">
+                            {/* 416-10 (88.3) */}
+                            {inning.team.score + "-" + inning.team.wicket + " (" + inning.team.over + ") "}
+                          </span>
+                        </p>
+                      </div>);
+                    })}
+                    {/* Super Over */}
+                    {teamScoreCard.super_over && <>
+                      <p className="bg-[#a0a0a045] py-1 rounded-md mb-4 text-xl blink-button w-[80%] mx-auto">Super Over</p>
+                      {Object.entries(teamScoreCard.super_over).map(([groupName, inning], ind) => {
+                        return (<div className="flex items-center justify-between gap-2 mb-4 pb-2" key={ind}>
+                          <div className="flex items-center gap-2">
+                            <img
+                              className=" w-[30px] h-[30px] rounded-full object-cover"
+                              src={inning.team.flag} alt=""
+                            />
+                            <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0 md:block hidden">
+                              {inning.team.name}
+                            </p>
+                            <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0 md:hidden block">
+                              {inning.team.short_name}
+                            </p>
+                          </div>
+                          <p className="mb-0">
+                            <span className="lg:text-[18px] text-[15px] text-white font-[500] mb-0">
+                              {/* 416-10 (88.3) */}
+                              {inning.team.score + "-" + inning.team.wicket + " (" + inning.team.over + ") "}
+                            </span>
+                          </p>
+                        </div>);
+                      })}
+                    </>}
+                  </>)}
+
+                </>)
+              }
+
+
+
 
               {/* Team Countdown & Toss & Others*/}
               <div className="lg:text-[18px] text-[15px] text-white font-[500] pt-4">
@@ -380,7 +477,7 @@ const MatchDetails = () => {
               Points Table
             </span>
           </div>
-        </div>
+        </div >
       )}
       <div>{infoToggle && <MatchInfo status={matchStatus} />}</div>
       <div>{pitchReportToggle && <PitchReport />}</div>

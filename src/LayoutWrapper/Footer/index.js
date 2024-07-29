@@ -1,8 +1,6 @@
-import { Box, Grid, IconButton, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import Container from "react-bootstrap/Container";
-// import { Link } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 import React, { useState } from "react";
 
 // Footer Logo----------
@@ -14,9 +12,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
-import zIndex from "@mui/material/styles/zIndex";
 
 const SocialIcon = ({ icon, link, hoverColor }) => {
   const [hovered, setHovered] = useState(false);
@@ -60,6 +56,7 @@ const Footer = () => {
     { menuName: "E-Games", link: "/e-games" },
     { menuName: "Entertainment", link: "/entertainment" },
   ];
+
   const latestPost = [
     {
       menuName:
@@ -77,11 +74,13 @@ const Footer = () => {
       link: "#",
     },
   ];
+
   const knowMore = [
     { menuName: "Terms & Conditions", link: "/terms-Conditions" },
     { menuName: "Privacy Policy", link: "/privacy-and-policy" },
     { menuName: "Disclaimer", link: "/disclaimer" },
   ];
+
   const FollowUsOnList = [
     {
       title: "Facebook",
@@ -114,6 +113,7 @@ const Footer = () => {
       hoverColor: "#25d366", // WhatsApp green
     },
   ];
+
   return (
     <>
       <Box
@@ -126,7 +126,8 @@ const Footer = () => {
           <Grid container gap={5} className="justify-content-center">
             <Grid
               item
-              sm={3.5}
+              lg={3.5}
+              sm={6}
               xs={11}
               className="d-flex justify-between align-items-center bg-white px-1"
               style={{

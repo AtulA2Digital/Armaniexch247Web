@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
 
 import Squads_Icon from "../../Images/Cricket-Pages/team-white.png";
 import { getUpcomingMatchData } from "../../redux/CricketApi/actions";
@@ -36,13 +34,13 @@ const Schedule = () => {
   let SeriesTypeFilteredMatches =
     matchStatus === "Upcomming"
       ? upcoming_match_datas.filter((match) => {
-          return match.series_type === activeSeriesType;
-        })
+        return match.series_type === activeSeriesType;
+      })
       : matchStatus === "Live"
-      ? liveMatchesList.filter((match) => {
+        ? liveMatchesList.filter((match) => {
           return match.series_type === activeSeriesType;
         })
-      : recentMatchesList.filter((match) => {
+        : recentMatchesList.filter((match) => {
           return match.series_type === activeSeriesType;
         });
 
@@ -111,9 +109,8 @@ const Schedule = () => {
           onClick={() => {
             setMatchStatus("Live");
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${
-            matchStatus === "Live" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${matchStatus === "Live" ? "active" : ""
+            }`}
         >
           Live
         </button>
@@ -121,9 +118,8 @@ const Schedule = () => {
           onClick={() => {
             setMatchStatus("Recent");
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${
-            matchStatus === "Recent" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${matchStatus === "Recent" ? "active" : ""
+            }`}
         >
           Recent
         </button>
@@ -131,9 +127,8 @@ const Schedule = () => {
           onClick={() => {
             setMatchStatus("Upcomming");
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${
-            matchStatus === "Upcomming" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] px-6 py-2 rounded-[32px] font-[600] cursor-pointer ${matchStatus === "Upcomming" ? "active" : ""
+            }`}
         >
           Upcomming
         </button>
@@ -146,9 +141,8 @@ const Schedule = () => {
             setGetAllMatchesList(true);
             setActiveSeriesType();
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            getAllMatchesList ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${getAllMatchesList ? "active" : ""
+            }`}
         >
           All
         </button>
@@ -157,9 +151,8 @@ const Schedule = () => {
             setActiveSeriesType("International");
             setGetAllMatchesList(false);
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            activeSeriesType === "International" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${activeSeriesType === "International" ? "active" : ""
+            }`}
         >
           International
         </button>
@@ -168,9 +161,8 @@ const Schedule = () => {
             setActiveSeriesType("Domestic");
             setGetAllMatchesList(false);
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            activeSeriesType === "Domestic" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${activeSeriesType === "Domestic" ? "active" : ""
+            }`}
         >
           Domestic & Others
         </button>
@@ -179,9 +171,8 @@ const Schedule = () => {
             setActiveSeriesType("League");
             setGetAllMatchesList(false);
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            activeSeriesType === "League" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${activeSeriesType === "League" ? "active" : ""
+            }`}
         >
           League
         </button>
@@ -190,9 +181,8 @@ const Schedule = () => {
             setActiveSeriesType("Women");
             setGetAllMatchesList(false);
           }}
-          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${
-            activeSeriesType === "Women" ? "active" : ""
-          }`}
+          className={`toggle-button info-hover bg-[#ffffff] text-[#000] md:px-6 px-[5px] py-2 rounded-[32px] font-[600] cursor-pointer ${activeSeriesType === "Women" ? "active" : ""
+            }`}
         >
           Women
         </button>

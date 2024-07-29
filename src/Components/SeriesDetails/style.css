@@ -4,14 +4,43 @@
 
 /* Add these classes to your Tailwind CSS configuration if not already available */
 .transition-max-height {
-    transition: max-height .8s ease-in-out;
+  transition: max-height 0.8s ease-in-out;
 }
 
 .max-h-0 {
-    max-height: 0;
+  max-height: 0;
 }
 
 .max-h-screen {
-    max-height: 100vh;
-    /* Adjust according to your content's maximum height */
+  max-height: 100vh;
+  /* Adjust according to your content's maximum height */
+}
+
+/* Series Info */
+.venues-card {
+  transition: box-shadow 0.3s ease-in-out, background-color 0.5s ease-in-out;
+}
+.venues-card:hover {
+  background-color: #399143;
+  box-shadow: 0 0 10px 1px #fff;
+}
+.venues-card .news-img img {
+  transition: transform 0.5s ease-in-out;
+}
+.venues-card:hover .news-img img {
+  transform: scale(1.1);
+}
+.read-news {
+  background-color: #fff;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+@media (max-width: 900px) {
+  /* Man Of The Series------------ */
+  .table-body-wrapper {
+    overflow-x: scroll;
+  }
+  .table-body-inner-wrapper {
+    min-width: 1200px;
+  }
 }

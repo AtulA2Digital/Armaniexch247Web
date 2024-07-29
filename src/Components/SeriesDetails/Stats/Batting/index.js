@@ -463,135 +463,135 @@ const BattingStat = ({ statType }) => {
                 <>
                   {mostRunData.most_runs && mostRunData.length === undefined
                     ? mostRunData.most_runs.map((batsman, ind) => (
-                        <div
-                          className="px-2 border-b-2 border-[#252927] pb-2 my-3"
-                          key={ind}
-                        >
-                          {TableBodyData(batsman, 100 / val.headerKeysLength)}
-                        </div>
-                      ))
+                      <div
+                        className="px-2 border-b-2 border-[#252927] pb-2 my-3"
+                        key={ind}
+                      >
+                        {TableBodyData(batsman, 100 / val.headerKeysLength)}
+                      </div>
+                    ))
                     : NoDataFound()}
                 </>
               )}
               {val.statTitle === "Highest Individual Score" && (
                 <>
                   {mostHighestScoreData.highest_scores &&
-                  mostHighestScoreData.length === undefined
+                    mostHighestScoreData.length === undefined
                     ? mostHighestScoreData.highest_scores.map(
-                        (batsman, ind) => (
-                          <div
-                            className="px-2 border-b-2 border-[#252927] pb-2 my-3"
-                            key={ind}
-                          >
-                            {TableBodyData(batsman, 100 / val.headerKeysLength)}
-                          </div>
-                        )
+                      (batsman, ind) => (
+                        <div
+                          className="px-2 border-b-2 border-[#252927] pb-2 my-3"
+                          key={ind}
+                        >
+                          {TableBodyData(batsman, 100 / val.headerKeysLength)}
+                        </div>
                       )
+                    )
                     : NoDataFound()}
                 </>
               )}
               {val.statTitle === "Best Batting Average" && (
                 <>
                   {mostBattingAvgData.batting_avg &&
-                  mostBattingAvgData.length === undefined
+                    mostBattingAvgData.length === undefined
                     ? mostBattingAvgData.batting_avg.map((batsman, ind) => (
-                        <div
-                          className="px-2 border-b-2 border-[#252927] pb-2 my-3"
-                          key={ind}
-                        >
-                          {TableBodyData(batsman, 100 / val.headerKeysLength)}
-                        </div>
-                      ))
+                      <div
+                        className="px-2 border-b-2 border-[#252927] pb-2 my-3"
+                        key={ind}
+                      >
+                        {TableBodyData(batsman, 100 / val.headerKeysLength)}
+                      </div>
+                    ))
                     : NoDataFound()}
                 </>
               )}
               {val.statTitle === "Best Batting Strike Rate" && (
                 <>
                   {mostBattingSRData.batting_sr &&
-                  mostBattingSRData.length === undefined
+                    mostBattingSRData.length === undefined
                     ? mostBattingSRData.batting_sr.map((batsman, ind) => (
-                        <div
-                          className="px-2 border-b-2 border-[#252927] pb-2 my-3"
-                          key={ind}
-                        >
-                          {TableBodyData(batsman, 100 / val.headerKeysLength)}
-                        </div>
-                      ))
+                      <div
+                        className="px-2 border-b-2 border-[#252927] pb-2 my-3"
+                        key={ind}
+                      >
+                        {TableBodyData(batsman, 100 / val.headerKeysLength)}
+                      </div>
+                    ))
                     : NoDataFound()}
                 </>
               )}
               {val.statTitle === "Most 100+ Score" && (
                 <>
                   {mostHundredsData.most_hundreds &&
-                  mostHundredsData.length === undefined
+                    mostHundredsData.length === undefined
                     ? mostHundredsData.most_hundreds.map((batsman, ind) => (
-                        <div
-                          className="px-2 border-b-2 border-[#252927] pb-2 my-3"
-                          key={ind}
-                        >
-                          {TableBodyData(batsman, 100 / val.headerKeysLength)}
-                        </div>
-                      ))
+                      <div
+                        className="px-2 border-b-2 border-[#252927] pb-2 my-3"
+                        key={ind}
+                      >
+                        {TableBodyData(batsman, 100 / val.headerKeysLength)}
+                      </div>
+                    ))
                     : NoDataFound()}
                 </>
               )}
               {val.statTitle === "Most 50+ Score" && (
                 <>
                   {mostFiftiesData.most_fifty &&
-                  mostFiftiesData.length === undefined
+                    mostFiftiesData.length === undefined
                     ? mostFiftiesData.most_fifty.map((batsman, ind) => (
-                        <div
-                          className="px-2 border-b-2 border-[#252927] pb-2 my-3"
-                          key={ind}
-                        >
-                          {TableBodyData(batsman, 100 / val.headerKeysLength)}
-                        </div>
-                      ))
+                      <div
+                        className="px-2 border-b-2 border-[#252927] pb-2 my-3"
+                        key={ind}
+                      >
+                        {TableBodyData(batsman, 100 / val.headerKeysLength)}
+                      </div>
+                    ))
                     : NoDataFound()}
                 </>
               )}
               {val.statTitle === "Most 90's Score" && (
                 <>
                   {mostNinetiesData.most_nineties &&
-                  mostNinetiesData.length === undefined
+                    mostNinetiesData.length === undefined
                     ? mostNinetiesData.most_nineties.map((batsman, ind) => (
-                        <div
-                          className="px-2 border-b-2 border-[#252927] pb-2 my-3"
-                          key={ind}
-                        >
-                          {TableBodyData(batsman, 100 / val.headerKeysLength)}
-                        </div>
-                      ))
+                      <div
+                        className="px-2 border-b-2 border-[#252927] pb-2 my-3"
+                        key={ind}
+                      >
+                        {TableBodyData(batsman, 100 / val.headerKeysLength)}
+                      </div>
+                    ))
                     : NoDataFound()}
                 </>
               )}
               {val.statTitle === "Most Fours" && (
                 <>
                   {mostFoursData.most_fours &&
-                  mostFoursData.length === undefined
+                    mostFoursData.length === undefined
                     ? mostFoursData.most_fours.map((batsman, ind) => (
-                        <div
-                          className="px-2 border-b-2 border-[#252927] pb-2 my-3"
-                          key={ind}
-                        >
-                          {TableBodyData(batsman, 100 / val.headerKeysLength)}
-                        </div>
-                      ))
+                      <div
+                        className="px-2 border-b-2 border-[#252927] pb-2 my-3"
+                        key={ind}
+                      >
+                        {TableBodyData(batsman, 100 / val.headerKeysLength)}
+                      </div>
+                    ))
                     : NoDataFound()}
                 </>
               )}
               {val.statTitle === "Most Sixes" && (
                 <>
                   {mostSixesData.most_sixes &&
-                  mostSixesData.length === undefined
+                    mostSixesData.length === undefined
                     ? mostSixesData.most_sixes.map((batsman, ind) => (
-                        <div
-                          className="px-2 border-b-2 border-[#252927] pb-2 my-3"
-                          key={ind}
-                        >
-                          {TableBodyData(batsman, 100 / val.headerKeysLength)}
-                        </div>
-                      ))
+                      <div
+                        className="px-2 border-b-2 border-[#252927] pb-2 my-3"
+                        key={ind}
+                      >
+                        {TableBodyData(batsman, 100 / val.headerKeysLength)}
+                      </div>
+                    ))
                     : NoDataFound()}
                 </>
               )}
