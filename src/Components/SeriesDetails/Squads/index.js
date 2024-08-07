@@ -104,14 +104,14 @@ const Squads = () => {
                     >
                       <Link
                         to={`/player-profiles/${data.player_id}`}
-                        className=""
+                        className="text-[#fff] hover:text-[#3ab949]"
                       >
                         <img
                           src={data.image}
                           alt="team img"
                           className="rounded-full w-[80px] h-[80px] object-cover mx-auto object-top"
                         />
-                        <h5 className="team-name mt-2 mb-0 text-[#fff]">
+                        <h5 className="team-name mt-2 mb-0">
                           {data.name}
                         </h5>
                         <p className="text-[14px] text-[#777777]">

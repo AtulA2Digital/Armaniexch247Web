@@ -9,7 +9,7 @@ const SeriesInfo = () => {
     const [seriesNewsList, setSeriesNewsList] = useState([]);
     // console.log("seriesNewsList - ", seriesNewsList);
     const [MOTS, setMOTS] = useState();
-    console.log("MOTS - ", MOTS);
+    // console.log("MOTS - ", MOTS);
 
     const [dropdownStatus, setDropdownStatus] = useState({});
     const contentRefs = useRef([]);
@@ -67,6 +67,7 @@ const SeriesInfo = () => {
     const GetStatsWidth = (val) => {
         return 100 / val;
     };
+
     const handleDropdownToggle = (statTitle, index) => {
         setDropdownStatus((prevStatus) => {
             const newStatus = {};
@@ -216,6 +217,7 @@ const SeriesInfo = () => {
             </span>
         );
     };
+
     return (
         <div className="series-info">
             {/* Man Of The Series */}
@@ -321,7 +323,6 @@ const SeriesInfo = () => {
                 </div>
             }
 
-
             {/* Latest News */}
             <div className="bg-[#000000] border-2 rounded-[18px] border-[#39441d]">
                 <div
@@ -332,7 +333,7 @@ const SeriesInfo = () => {
                 <div className="flex justify-between flex-row flex-wrap gap-y-5 md:px-7 px-3 py-4">
                     {seriesNewsList.length > 0 ? seriesNewsList.map((news, ind) => {
                         return (<div className="bg-[#242424] rounded-[10px] xl:w-[32%] md:w-[49%] cursor-pointer venues-card" key={ind}>
-                            <Link className="text-[#fff]" to={`/armani-match-details/news/${news.news_id}`}>
+                            <Link className="text-[#fff]" to={`/news/${news.news_id}`}>
                                 <div
                                     className="news-img"
                                     style={{

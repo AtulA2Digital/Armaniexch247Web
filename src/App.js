@@ -14,6 +14,7 @@ import SeriesDetails from "./Pages/SeriesDetails";
 import Player_Profiles from "./Pages/Player_Profiles";
 import Schedule from "./Pages/Schedule";
 import Venue_Details from "./Pages/Venue_Details";
+import News_Details from "./Pages/News_Details";
 
 function App() {
   return (
@@ -44,6 +45,10 @@ function App() {
               <Route
                 path="/venue-details/:venueId"
                 element={<Venue_Details />}
+              />
+              <Route
+                path="/news/:newsId"
+                element={<News_Details />}
               />
               <Route path="/icc-rankings" element={<ICC_Rankings />} />
               <Route

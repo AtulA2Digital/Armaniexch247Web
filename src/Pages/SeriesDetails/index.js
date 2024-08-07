@@ -11,6 +11,7 @@ const SeriesDetails = () => {
   const { seriesId } = useParams();
   var FormData = require("form-data");
   const [seriesRecentData, setSeriesRecentData] = useState([]);
+  // console.log("seriesRecentData - ", seriesRecentData);
   const [seriesUpcommingData, setSeriesUpcommingData] = useState([]);
   const [seriesLiveMatches, setSeriesLiveMatches] = useState([]);
   // console.log("seriesLiveMatches - ", seriesLiveMatches);
@@ -43,24 +44,17 @@ const SeriesDetails = () => {
     setSeriesLiveMatches(response.data);
   };
 
-  const formatUrlString = (str) => {
-    return str
-      .toLowerCase()
-      .replace(/ /g, '-')
-      .replace(/[^a-z0-9-']/g, '');
-  };
-
   useEffect(() => {
     getSeriesRecentDetails(seriesId);
     getSeriesLiveMatches();
     getSeriesUpcommingDetails(seriesId);
   }, [seriesId]);
 
-  // const filteredMatches = seriesLiveMatches.filter(
-  //   (match) => formatUrlString(match.series) === seriesName
-  // );
+  const filteredLiveMatch = seriesLiveMatches.filter(
+    (match) => match.series_id == seriesId
+  );
+  // console.log("filteredLiveMatch - ", filteredLiveMatch);
 
-  // const combinedData = [...filteredMatches, ...seriesUpcommingData];
   return (
     <div className="xl:w-[90%] w-[96%] mx-auto px-2 md:mt-10 py-7">
       <div className="bg-gradient-to-r from-[#39441d] to-[#141815] rounded-lg py-3 mb-5 sm:w-[90%] mx-auto">
@@ -154,7 +148,7 @@ const SeriesDetails = () => {
                       key={ind}
                     >
                       <div className="flex mb-2 justify-start items-start w-100 py-3 rounded-lg bg-[#232525] hover:bg-[#393c3c] px-3 text-left text-xl">
-                        <p className="w-[20%] text-white md:text-[16px] text-[14px] mb-0 leading-[20px]">
+                        <p className="w-[20%] text-white md:text-[16px] text-[11px] mb-0 leading-[20px]">
                           {val.date_wise}
                         </p>{" "}
                         <div className="w-[60%] mb-0 md:pe-4 md:ps-0 ps-2 flex flex-md-row flex-column md:gap-4 gap-2">
@@ -165,10 +159,10 @@ const SeriesDetails = () => {
                                 alt="team"
                                 className="rounded-full md:w-[50px] w-[40px] md:h-[50px] h-[40px] object-cover mx-auto md:mb-2 mb-1"
                               />
-                              <span className="md:block hidden">
+                              <span className="lg:block hidden">
                                 {val.team_a}
                               </span>
-                              <span className="md:hidden block">
+                              <span className="lg:hidden block">
                                 {val.team_a_short}
                               </span>
                             </div>
@@ -179,10 +173,10 @@ const SeriesDetails = () => {
                                 alt="team"
                                 className="rounded-full md:w-[50px] w-[40px] md:h-[50px] h-[40px] object-cover mx-auto md:mb-2 mb-1"
                               />
-                              <span className="md:block hidden">
+                              <span className="lg:block hidden">
                                 {val.team_b}
                               </span>
-                              <span className="md:hidden block">
+                              <span className="lg:hidden block">
                                 {val.team_b_short}
                               </span>
                             </div>
@@ -199,7 +193,7 @@ const SeriesDetails = () => {
                             </p>
                           </div>
                         </div>
-                        <p className="text-white md:text-[16px] text-[14px] mb-0">
+                        <p className="text-white md:text-[16px] text-[11px] mb-0">
                           {val.match_time}
                         </p>
                       </div>
@@ -209,8 +203,8 @@ const SeriesDetails = () => {
             )}
 
             {/* Live Matches Data--- */}
-            {/* {seriesRecentData !== undefined && seriesRecentData !== null && (
-              seriesRecentData
+            {filteredLiveMatch !== undefined && filteredLiveMatch !== null && (
+              filteredLiveMatch
                 .slice()
                 .reverse()
                 .map((val, ind) => {
@@ -220,8 +214,9 @@ const SeriesDetails = () => {
                       key={ind}
                     >
                       <div className="flex mb-2 justify-start items-start w-100 py-3 rounded-lg bg-[#232525] hover:bg-[#393c3c] px-3 text-left text-xl">
-                        <p className="w-[20%] text-white md:text-[16px] text-[14px] mb-0 leading-[20px]">
-                          {val.date_wise}
+                        <p className="w-[20%] text-white md:text-[16px] text-[11px] mb-0 leading-[20px]">
+                          {val.match_date},{" "}
+                          {val.match_time}
                         </p>{" "}
                         <div className="w-[60%] mb-0 md:pe-4 md:ps-0 ps-2 flex flex-md-row flex-column md:gap-4 gap-2">
                           <div className="text-[16px] text-white flex items-center gap-4  md:w-[50%]">
@@ -231,24 +226,24 @@ const SeriesDetails = () => {
                                 alt="team"
                                 className="rounded-full md:w-[50px] w-[40px] md:h-[50px] h-[40px] object-cover mx-auto md:mb-2 mb-1"
                               />
-                              <span className="md:block hidden">
+                              <span className="lg:block hidden">
                                 {val.team_a}
                               </span>
-                              <span className="md:hidden block">
+                              <span className="lg:hidden block">
                                 {val.team_a_short}
                               </span>
                             </div>
-                            <span className="text-[26px] text-[red]">vs</span>
+                            <span className="text-[26px] text-[#3ab949]">vs</span>
                             <div className="text-center md:w-[40%]">
                               <img
                                 src={val.team_b_img}
                                 alt="team"
                                 className="rounded-full md:w-[50px] w-[40px] md:h-[50px] h-[40px] object-cover mx-auto md:mb-2 mb-1"
                               />
-                              <span className="md:block hidden">
+                              <span className="lg:block hidden">
                                 {val.team_b}
                               </span>
-                              <span className="md:hidden block">
+                              <span className="lg:hidden block">
                                 {val.team_b_short}
                               </span>
                             </div>
@@ -260,19 +255,22 @@ const SeriesDetails = () => {
                             <p className="text-[14px] text-[#ffffffaf] mb-2 leading-[20px]">
                               {val.venue}
                             </p>
-                            <p className="text-[16px] text-[red] leading-[20px] mb-0">
-                              {val.result}
+                            <p className="text-[16px] text-[#3ab949] leading-[20px] mb-0">
+                              {val.toss}
                             </p>
                           </div>
                         </div>
-                        <p className="text-white md:text-[16px] text-[14px] mb-0">
+                        <p className="text-white md:text-[16px] text-[11px] mb-0">
                           {val.match_time}
+                          <br />
+                          <br />
+                          <span className="bg-[#3ab949] blink-button pt-1 pb-2 px-2 rounded-sm">Live</span>
                         </p>
                       </div>
                     </Link>
                   );
                 })
-            )} */}
+            )}
 
             {/* Series Upcomming Matches Data--- */}
             {seriesUpcommingData !== undefined && seriesUpcommingData !== null && (
@@ -283,7 +281,7 @@ const SeriesDetails = () => {
                     key={ind}
                   >
                     <div className="flex mb-2 justify-start items-start w-100 py-3 rounded-lg bg-[#232525] hover:bg-[#393c3c] px-3 text-left text-xl">
-                      <p className="w-[20%] text-white md:text-[16px] text-[14px] mb-0 leading-[20px]">
+                      <p className="w-[20%] text-white md:text-[16px] text-[11px] mb-0 leading-[20px]">
                         {val.date_wise}
                       </p>{" "}
                       <div className="w-[60%] mb-0 md:pe-4 md:ps-0 ps-2 flex flex-md-row flex-column md:gap-4 gap-2">
@@ -294,8 +292,8 @@ const SeriesDetails = () => {
                               alt="team"
                               className="rounded-full md:w-[50px] w-[40px] md:h-[50px] h-[40px] object-cover mx-auto md:mb-2 mb-1"
                             />
-                            <span className="md:block hidden">{val.team_a}</span>
-                            <span className="md:hidden block">
+                            <span className="lg:block hidden">{val.team_a}</span>
+                            <span className="lg:hidden block">
                               {val.team_a_short}
                             </span>
                           </div>
@@ -306,8 +304,8 @@ const SeriesDetails = () => {
                               alt="team"
                               className="rounded-full md:w-[50px] w-[40px] md:h-[50px] h-[40px] object-cover mx-auto md:mb-2 mb-1"
                             />
-                            <span className="md:block hidden">{val.team_b}</span>
-                            <span className="md:hidden block">
+                            <span className="lg:block hidden">{val.team_b}</span>
+                            <span className="lg:hidden block">
                               {val.team_b_short}
                             </span>
                           </div>
@@ -327,7 +325,7 @@ const SeriesDetails = () => {
                           </p>
                         </div>
                       </div>
-                      <p className="text-white md:text-[16px] text-[14px] mb-0">
+                      <p className="text-white md:text-[16px] text-[11px] mb-0">
                         {val.match_time}
                       </p>
                     </div>
@@ -343,7 +341,7 @@ const SeriesDetails = () => {
         </div>
       )}
 
-      {/* Match Info */}
+      {/* Series Info */}
       {seriesDataTab === "Series Info" && <SeriesInfo />}
 
       {/* Stats------------------------ */}
