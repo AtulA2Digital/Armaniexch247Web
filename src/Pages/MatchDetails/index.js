@@ -7,6 +7,7 @@ import Squads from "../../Components/Squads";
 import PointsTable from "../../Components/PointsTable";
 import Scoreboard from "../../Components/Scoreboard";
 import Commentary from "../../Components/Commentary";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const MatchDetails = () => {
   const [matchInfo, setMatchInfo] = useState(null);
@@ -14,6 +15,8 @@ const MatchDetails = () => {
   const [liveInfo, setLiveInfo] = useState(null);
   // console.log("liveInfo - ", liveInfo);
   const [infoToggle, setinfoToggle] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  // console.log("isLoading - ", isLoading);
   const [pitchReportToggle, setPitchReportToggle] = useState(false);
   const [squadsToggle, setSquadsToggle] = useState(false);
   const [pointsTableToggle, setPointsTableToggle] = useState(false);
@@ -23,38 +26,41 @@ const MatchDetails = () => {
   const [liveMatchesList, setLiveMatchesList] = useState([]);
   // console.log("liveMatchesList - ", liveMatchesList);
   const [matchStatus, setMatchStatus] = useState();
+  // console.log("matchStatus - ", matchStatus);
   const [matchIsLive, setMatchIsLive] = useState(false);
   // console.log("matchIsLive - ", matchIsLive);
   const { matchId, seriesId } = useParams();
 
-
   useEffect(() => {
+    // Set loading to true initially
+    setIsLoading(true);
+
     // Filter Live Match------------------
-    const LiveMatchData = liveMatchesList.filter((match) => {
+    const LiveMatchData = (liveMatchesList && liveMatchesList.length > 0) && liveMatchesList.filter((match) => {
       return match.match_id == matchId;
-    })
-    // console.log("LiveMatchData length - ", LiveMatchData.length);
+    });
     // console.log("LiveMatchData - ", LiveMatchData);
 
-
-    // -----------------------------------
-    if (LiveMatchData.length > 0) {
-      setMatchIsLive(true);
-      setMatchStatus("LIVE")
-    }
-    else {
-      setMatchIsLive(false);
-      if (liveInfo && !matchIsLive) {
-        if (liveInfo.result) {
-          setMatchStatus("FINISHED");
-        } else {
-          setMatchStatus("UPCOMING");
+    if (LiveMatchData !== false) {
+      if (LiveMatchData && LiveMatchData.length > 0) {
+        setMatchIsLive(true);
+        setMatchStatus("LIVE");
+        setIsLoading(false); // Set loading to false when data is available
+      } else {
+        setMatchIsLive(false);
+        if (liveInfo && !matchIsLive) {
+          if (liveInfo.result) {
+            setMatchStatus("FINISHED");
+          } else {
+            setMatchStatus("UPCOMING");
+          }
         }
+        setIsLoading(false); // Set loading to false when data is available
       }
     }
 
-  }, [liveMatchesList, matchInfo])
 
+  }, [liveMatchesList, matchInfo]);
 
   const handlePointsTable = () => {
     setPointsTableToggle(true);
@@ -160,6 +166,7 @@ const MatchDetails = () => {
       }
     }
   };
+
   const [countdown, setCountdown] = useState("00:00:00");
 
   useEffect(() => {
@@ -242,89 +249,95 @@ const MatchDetails = () => {
             <span className="text-[18px] text-[#ffffffba]">{matchInfo.data.match_type} Match {matchInfo.data.is_hundred === 2 && <span className="text-[14px]">(100 Balls)</span>}</span>
           </h1>
           <p>
-            <span
-              className={`d-inline-block p-1 py-2 rounded-[6px] blink-button min-w-[100px] text-center font-[600]`}
-              style={{
-                background:
-                  matchStatus === "LIVE"
-                    ? "rgb(58, 185, 73)"
-                    : matchStatus === "UPCOMING"
-                      ? "blue"
-                      : "red",
-              }}
-            >
-              {matchStatus}
-            </span>
+            {isLoading ? (
+              <CircularProgress style={{ color: "#3ab949" }} />
+            ) : (
+              <span
+                className={`d-inline-block p-1 py-2 rounded-[6px] blink-button min-w-[100px] text-center font-[600]`}
+                style={{
+                  background:
+                    matchStatus === "LIVE"
+                      ? "rgb(58, 185, 73)"
+                      : matchStatus === "UPCOMING"
+                        ? "blue"
+                        : "red",
+                }}
+              >
+                {matchStatus}
+              </span>
+            )}
           </p>
+
 
           {/* Live Card Start */}
           {liveInfo && (
             <div className="bg-[#000000a8] rounded-[12px] lg:w-[45%] w-[90%] md:px-5 px-[20px] py-4 text-center ">
               {/* Team */}
-              {(liveInfo.last4overs) || (liveInfo.toss.length === 0) ? (<div className="flex justify-between">
-                <div className="space-y-8">
-                  <div className="flex items-center gap-2">
-                    <img
-                      className=" w-[30px] h-[30px] rounded-full object-cover"
-                      src={liveInfo.team_a_img} alt=""
-                    />
-                    <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0">
-                      {liveInfo.team_a}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <img
-                      className=" w-[30px] h-[30px] rounded-full object-cover"
-                      src={liveInfo.team_b_img} alt=""
-                    />
+              {(liveInfo.batting_team) || (liveInfo.toss.length === 0) ?
+                (<div className="flex justify-between livecard">
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-2">
+                      <img
+                        className=" w-[30px] h-[30px] rounded-full object-cover"
+                        src={liveInfo.team_a_img} alt=""
+                      />
+                      <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0">
+                        {liveInfo.team_a}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <img
+                        className=" w-[30px] h-[30px] rounded-full object-cover"
+                        src={liveInfo.team_b_img} alt=""
+                      />
 
-                    <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0">
-                      {liveInfo.team_b}
-                    </p>
+                      <p className="lg:text-[22px] text-[15px] text-white font-[500] mb-0">
+                        {liveInfo.team_b}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col space-y-8">
-                  {/* Team A Score------------ */}
-                  <span className="lg:text-[18px] text-[15px] text-white font-[500] mb-0">
-                    {liveInfo.team_a_scores ? (
-                      liveInfo.team_a_scores_over.map((score, ind) => {
-                        return (
-                          <span key={ind}>
-                            {ind === 1 && <span>&</span>}
-                            {score.score + " (" + score.over + ")"}
-                          </span>
-                        );
-                      })
-                    ) : (
-                      <span className="lg:text-[18px] text-[15px]">
-                        No Data
-                      </span>
-                    )}
-                  </span>
+                  <div className="flex flex-col space-y-8">
+                    {/* Team A Score------------ */}
+                    <span className="lg:text-[18px] text-[15px] text-white font-[500] mb-0">
+                      {liveInfo.team_a_scores ? (
+                        liveInfo.team_a_scores_over.map((score, ind) => {
+                          return (
+                            <span key={ind}>
+                              {ind === 1 && <span>&</span>}
+                              {score.score + " (" + score.over + ")"}
+                            </span>
+                          );
+                        })
+                      ) : (
+                        <span className="lg:text-[18px] text-[15px]">
+                          No Data
+                        </span>
+                      )}
+                    </span>
 
-                  {/* Team B Score------------ */}
-                  <span className="lg:text-[18px] text-[15px] text-white font-[500] mb-0">
-                    {liveInfo.team_b_scores ? (
-                      liveInfo.team_b_scores_over.map((score, ind) => {
-                        return (
-                          <span key={ind}>
-                            {ind === 1 && <span> & </span>}
-                            {score.score + " (" + score.over + ")"}
-                          </span>
-                        );
-                      })
-                    ) : (
-                      <span className="lg:text-[18px] text-[15px]">
-                        No Data
-                      </span>
-                    )}
-                  </span>
-                </div>
-              </div>) :
+                    {/* Team B Score------------ */}
+                    <span className="lg:text-[18px] text-[15px] text-white font-[500] mb-0">
+                      {liveInfo.team_b_scores ? (
+                        liveInfo.team_b_scores_over.map((score, ind) => {
+                          return (
+                            <span key={ind}>
+                              {ind === 1 && <span> & </span>}
+                              {score.score + " (" + score.over + ")"}
+                            </span>
+                          );
+                        })
+                      ) : (
+                        <span className="lg:text-[18px] text-[15px]">
+                          No Data
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                </div>) :
                 (<>
                   {teamScoreCard.length === undefined && (<>
                     {Object.entries(teamScoreCard.scorecard).map(([groupName, inning], ind) => {
-                      return (<div className="flex items-center justify-between gap-2 mb-4 pb-2" key={ind}>
+                      return (<div className="flex items-center justify-between gap-2 mb-4 pb-2 scorecard" key={ind}>
                         <div className="flex items-center gap-2">
                           <img
                             className=" w-[30px] h-[30px] rounded-full object-cover"
@@ -375,9 +388,6 @@ const MatchDetails = () => {
 
                 </>)
               }
-
-
-
 
               {/* Team Countdown & Toss & Others*/}
               <div className="lg:text-[18px] text-[15px] text-white font-[500] pt-4">

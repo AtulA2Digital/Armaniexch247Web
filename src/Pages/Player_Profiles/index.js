@@ -132,9 +132,9 @@ const Player_Profiles = () => {
             <img
               src={playerDetails.player.image}
               alt=""
-              className="md:w-[120px] rounded-full p-1 border-1"
+              className="w-[120px] rounded-full p-1 border-1 mx-md-0 mx-auto"
             />
-            <div>
+            <div className="text-md-start text-center">
               <p className="mb-0 xl:text-[48px] md:text-[42px] text-[42px]">
                 {playerDetails.player.name}
               </p>
@@ -156,11 +156,11 @@ const Player_Profiles = () => {
                       info.value !== "*" &&
                       info.value !== "--" &&
                       info.value.length !== 0 && (
-                        <div className="flex md:gap-1 gap-3" key={i}>
+                        <div className="flex md:gap-1 gap-3 justify-content-md-start justify-content-between" key={i}>
                           <p className="text-[#777777] lg:text-[18px] font-medium w-[30%]">
                             {info.key}
                           </p>
-                          <p className="text-[#C9C7C7] lg:text-[18px] font-medium">
+                          <p className="text-[#C9C7C7] lg:text-[18px] font-medium text-md-start text-end">
                             {info.value}
                           </p>
                         </div>

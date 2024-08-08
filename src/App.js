@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-
 import ScrollTop from "./Components/ScrollToTop";
 import Layout from "./LayoutWrapper/AdminLayout";
-import MatchInfo from "./Components/Match Info";
 import Home from "./Pages/Home";
 import MatchDetails from "./Pages/MatchDetails";
-// import UpcomingMatch from "./Pages/UpcomingMatch";
 import Series from "./Pages/Series/Series";
 import ICC_Rankings from "./Pages/ICC_Rankings";
 import SeriesDetails from "./Pages/SeriesDetails";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Box, CircularProgress } from "@mui/material";
 import Squads_Icon from "../../Images/Cricket-Pages/team-white.png";
@@ -13,6 +13,36 @@ const Commentary = ({ status }) => {
   // console.log("commentaries - ", commentaries);
   // console.log("Match Status - ", status);
   const [loading, setLoading] = useState(false);
+
+  // Commentary Load More--------------
+  const [height, setHeight] = useState(300); // Initial height
+  const [showLoadMore, setShowLoadMore] = useState(true); // To track if more comments are available
+  const sectionRef = useRef(null); // Ref to the commentary section
+
+  useEffect(() => {
+    // Check if the section height is less than the scroll height
+    if (sectionRef.current) {
+      if (sectionRef.current.scrollHeight <= height) {
+        setShowLoadMore(false);
+      }
+    }
+  }, [height, commentaries.length]);
+
+  const handleLoadMore = () => {
+    const newHeight = height + 300; // Increase height by 300px or any other value as needed
+
+    if (sectionRef.current) {
+      // Check if the new height would still be less than the scroll height
+      if (newHeight >= sectionRef.current.scrollHeight) {
+        setHeight(sectionRef.current.scrollHeight);
+        setShowLoadMore(false); // Hide Load More button if all comments are shown
+      } else {
+        setHeight(newHeight);
+      }
+    }
+  };
+  // /Commentary Load More--------------
+
 
   useEffect(() => {
     setLoading(true);
@@ -246,10 +276,9 @@ const Commentary = ({ status }) => {
       </>
     );
   };
-
   return (
     <>
-      {((liveInfo && liveInfo.toss.length > 0 && liveInfo.last4overs)) ? (
+      {((liveInfo && liveInfo.toss.length > 0 && liveInfo.batting_team)) ? (
         <div className="md:my-6 py-8 mx-4">
           <div className="bg-gradient-to-r from-[#39441d] to-[#141815] rounded-lg py-3 mb-10 w-[90%] mx-auto">
             <p className="text-white md:text-[30px] text-[24px] font-semibold px-4 flex items-center justify-center gap-x-4 mb-0">
@@ -454,7 +483,7 @@ const Commentary = ({ status }) => {
                     </div>
                   )}
                   {/* Last Bowler */}
-                  {liveInfo.last_bolwer.name !== "-" && (
+                  {(liveInfo.last_bolwer && liveInfo.last_bolwer.name !== "-") && (
                     <div className="flex flex-wrap justify-between  pb-2 my-3 px-2  mx-[2%] border-b-2 border-[#252927]">
                       <p className="mb-0 sm:w-[50] w-[40%]">
                         <Link
@@ -543,7 +572,7 @@ const Commentary = ({ status }) => {
                     {liveInfo.partnership.run} ({liveInfo.partnership.ball})
                   </p>
                   {/* lastwicket */}
-                  {liveInfo.lastwicket.player.length > 0 && <p className="font-[400] text-[#ffffffa1]">
+                  {(liveInfo.lastwicket && liveInfo.lastwicket.player.length > 0) && <p className="font-[400] text-[#ffffffa1]">
                     <span className="font-[500] text-[18px] text-[#fff]">
                       Last Wicket:
                     </span>{" "}
@@ -589,7 +618,7 @@ const Commentary = ({ status }) => {
           </div>
 
           {/* Commentary---------------- */}
-          {commentaries.length !== 0 && <div className="d-flex justify-between flex-wrap">
+          {commentaries.length !== 0 && <div className="commentary-section" style={{ height: `${height}px` }} ref={sectionRef}><div className="d-flex justify-between flex-wrap">
             {hasFourthInning && (
               <div className={` ${hasFourthInning ? "xl:w-[48%] w-full" : ""}`}>
                 <h3 className="text-md-start text-center uppercase mb-4">
@@ -624,7 +653,12 @@ const Commentary = ({ status }) => {
                 {firstInning}
               </div>
             )}
-          </div>}
+          </div></div>}
+          {showLoadMore && (
+            <div className="load-more" onClick={handleLoadMore}>
+              Load More
+            </div>
+          )}
         </div>
       ) : (
         <div className="text-center text-white py-4 my-10 bg-[#242424] w-50 mx-auto rounded-lg">
