@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Box, CircularProgress } from "@mui/material";
-import Squads_Icon from "../../Images/Cricket-Pages/team-white.png";
+import CommentaryIcon from "../../Images/Cricket-Pages/Heading Icons/commentary-min.webp";
 import { postAPIHandler } from "../../Api/api";
 import "./style.css";
 
@@ -280,12 +280,12 @@ const Commentary = ({ status }) => {
     <>
       {((liveInfo && liveInfo.toss.length > 0 && liveInfo.batting_team)) ? (
         <div className="md:my-6 py-8 mx-4">
-          <div className="bg-gradient-to-r from-[#39441d] to-[#141815] rounded-lg py-3 mb-10 w-[90%] mx-auto">
-            <p className="text-white md:text-[30px] text-[24px] font-semibold px-4 flex items-center justify-center gap-x-4 mb-0">
+          <div className="rounded-lg py-3 mb-10 w-[90%] mx-auto" style={{ background: "linear-gradient(90.3deg, rgb(175, 107, 22) 0.16%, rgb(248, 223, 101) 50.89%, rgb(220, 154, 43) 101.62%)" }}>
+            <p className="text-black md:text-[30px] text-[24px] font-semibold px-4 flex items-center justify-center gap-x-4 mb-0">
               <img
-                src={Squads_Icon}
+                src={CommentaryIcon}
                 alt="squads"
-                className="w-[50px] border-2 rounded-full border-[#fff] p-2"
+                className="w-[60px] border-2 rounded-full border-[#fff] p-2 bg-[#000]"
               />
               Commentary
             </p>
@@ -655,8 +655,10 @@ const Commentary = ({ status }) => {
             )}
           </div></div>}
           {showLoadMore && (
-            <div className="load-more" onClick={handleLoadMore}>
-              Load More
+            <div className="text-center load-more-wrapper">
+              <button className="load-more" onClick={handleLoadMore}>
+                Load More
+              </button>
             </div>
           )}
         </div>

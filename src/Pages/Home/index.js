@@ -9,6 +9,7 @@ import FollowUsOn from "../../Components/Follow Us On";
 import CategoryNewsCard from "../../Components/Category-News-Card";
 import MatchInfo from "../../Components/Match Info";
 import CricketCard from "../../Components/Cricket Card";
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
   const cricketNewsList = [
@@ -78,6 +79,12 @@ const Home = () => {
   ];
   return (
     <>
+      <Helmet>
+        <title>Test New Page</title>
+        <meta name="description" content="This is the description of my page" />
+        <meta name="keywords" content="React, Helmet, SEO, Meta Tags" />
+        <link rel="canonical" href="https://www.example.com/my-page" />
+      </Helmet>
       <CricketCard />
       <Container className="p-0 my-5">
         <Box className="Cards-section">

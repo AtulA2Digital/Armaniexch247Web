@@ -74,12 +74,12 @@ const Squads = () => {
     <>
       {teams && teams.length === undefined ? (
         <div className="md:my-6 py-8 mx-4 bg-[#000000] rounded-[18px] ">
-          <div className="bg-gradient-to-r from-[#39441d] to-[#141815] rounded-lg py-3 mb-5 sm:w-[90%] mx-auto">
-            <p className="text-white md:text-[30px] text-[24px] font-semibold px-4 flex items-center justify-center gap-x-4 mb-0">
+          <div className="rounded-lg py-3 mb-5 sm:w-[90%] mx-auto" style={{ background: "linear-gradient(90.3deg, rgb(175, 107, 22) 0.16%, rgb(248, 223, 101) 50.89%, rgb(220, 154, 43) 101.62%)" }}>
+            <p className="text-black md:text-[30px] text-[24px] font-semibold px-4 flex items-center justify-center gap-x-4 mb-0">
               <img
                 src={Squads_Icon}
                 alt="squads"
-                className="w-[50px]  border-2 rounded-full border-[#fff] p-2"
+                className="w-[60px]  border-2 rounded-full border-[#fff] p-2 bg-black"
               />
               Squads
             </p>

@@ -1,71 +1,53 @@
-import React, { useState } from "react";
-import TeamRankingTable from "./TeamRankingTable";
+import React, { useEffect, useState } from "react";
+import { postAPIHandler } from "../../../Api/api";
 
-const TeamRanking = () => {
-  const [odiToggle, setOdiToggle] = useState(true);
-  const [t20Toggle, setT20Toggle] = useState(false);
-  const [testToggle, setTestToggle] = useState(false);
-  const handleOdiToggle = () => {
-    setOdiToggle(true);
-    setT20Toggle(false);
-    setTestToggle(false);
-  };
-  const handleT20Toggle = () => {
-    setT20Toggle(true);
-    setOdiToggle(false);
-    setTestToggle(false);
-  };
-  const handleTestToggle = () => {
-    setTestToggle(true);
-    setT20Toggle(false);
-    setOdiToggle(false);
+const TeamRanking = ({ formatTypes }) => {
+  const [teamRanking, setTeamRanking] = useState([]);
+
+  useEffect(() => {
+    GetTeamRanking();
+  }, [formatTypes]);
+
+  const GetTeamRanking = async () => {
+    const formData = new FormData();
+    formData.append("type", formatTypes === "ODI" ? 1 : formatTypes === "Test" ? 2 : 3);
+
+    const response = await postAPIHandler("teamRanking", formData);
+    const data = response.data;
+
+    const uniqueData = Array.isArray(data)
+      ? data.filter(
+        (team, index, self) =>
+          index ===
+          self.findIndex((t) => t.rank === team.rank && t.team === team.team)
+      )
+      : [];
+
+    const sortedData = uniqueData.sort((a, b) => a.rank - b.rank);
+    // console.log("sortedData - ", sortedData);
+    setTeamRanking(sortedData);
+    // setLoading(false);
   };
 
-  const formatTypes = [
-    {
-      typename: "ODI",
-      clickEvent: handleOdiToggle,
-      activateBtn: odiToggle,
-    },
-    {
-      typename: "Test",
-      clickEvent: handleTestToggle,
-      activateBtn: testToggle,
-    },
-    {
-      typename: "T20",
-      clickEvent: handleT20Toggle,
-      activateBtn: t20Toggle,
-    },
-  ];
   return (
-    <div className="my-4">
-      <div className="xl:w-[60%] lg:w-[80%] w-[100%] m-auto pb-4">
-        <div className="pb-4 border-b-2 border-[#ffffff14] lg:space-x-4 space-x-2">
-          {formatTypes.map((format, ind) => {
-            return (
-              <span
-                style={{
-                  backgroundColor: format.activateBtn ? "#3AB949" : "white",
-                  color: format.activateBtn ? "white" : "black",
-                }}
-                onClick={format.clickEvent}
-                key={ind}
-                className="info-hover bg-[#ffffff]  px-6 py-2 rounded-[32px] font-[600] cursor-pointer  "
-              >
-                {format.typename}
-              </span>
-            );
-          })}
+    <div className="teamRanking-table">
+      <div className="flex flex-wrap justify-between bg-gradient-to-r from-[#39441d] to-[#141815] py-3 rounded-lg lg:px-[10%] px-[5%]">
+        <span className="rank-field">Rank</span>
+        <span className="teamName-field">Team</span>
+        <span>Rating</span>
+        <span>Points</span>
+      </div>
+      {teamRanking.map((team, index) => (
+        <div
+          key={index}
+          className="flex flex-wrap justify-between w-100 py-3 rounded-lg mt-2 bg-[#232525] hover:bg-[#393c3c] lg:px-[10%] px-[5%]"
+        >
+          <span className="rank-field">{team.rank}</span>
+          <span className="teamName-field">{team.team}</span>
+          <span>{team.rating}</span>
+          <span>{team.point}</span>
         </div>
-      </div>
-      <div>
-        {
-          <TeamRankingTable
-            formatValue={t20Toggle ? "3" : testToggle ? "2" : "1"}
-          />
-        }
-      </div>
+      ))}
     </div>
   );
 };

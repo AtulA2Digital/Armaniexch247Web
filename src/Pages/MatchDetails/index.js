@@ -8,6 +8,7 @@ import PointsTable from "../../Components/PointsTable";
 import Scoreboard from "../../Components/Scoreboard";
 import Commentary from "../../Components/Commentary";
 import CircularProgress from '@mui/material/CircularProgress';
+import { Helmet } from "react-helmet";
 
 const MatchDetails = () => {
   const [matchInfo, setMatchInfo] = useState(null);
@@ -238,6 +239,10 @@ const MatchDetails = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>Live Scores, Upcoming Matches & Results | Armaniexch247news</title>
+        <meta name="description" content="Stay updated with Armaniexch247news for real-time live scores, upcoming match schedules, and detailed results of completed matches. Your go-to source for all match updates!" />
+      </Helmet>
       {liveInfo && matchInfo && (
         <div
           key={liveInfo?.match_id}

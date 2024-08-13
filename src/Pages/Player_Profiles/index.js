@@ -132,7 +132,7 @@ const Player_Profiles = () => {
             <img
               src={playerDetails.player.image}
               alt=""
-              className="w-[120px] rounded-full p-1 border-1 mx-md-0 mx-auto"
+              className="w-[120px] h-[120px] object-cover rounded-full p-1 border-1 mx-md-0 mx-auto"
             />
             <div className="text-md-start text-center">
               <p className="mb-0 xl:text-[48px] md:text-[42px] text-[42px]">
