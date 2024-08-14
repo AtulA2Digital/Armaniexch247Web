@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { postAPIHandler } from "../../Api/api";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { Helmet } from "react-helmet";
 
 const Player_Profiles = () => {
   const { playerId } = useParams();
@@ -124,7 +125,11 @@ const Player_Profiles = () => {
     ]
     : [];
 
-  return (
+  return (<>
+    <Helmet>
+      <title>Player Profiles | In-Depth Insights & Stats at Armaniexch247news</title>
+      <meta name="description" content="Explore detailed player profiles at Armaniexch247news. Get comprehensive insights, stats, and career highlights of your favorite Player." />
+    </Helmet>
     <div className="xl:w-[90%] w-[96%] mx-auto px-2 md:mt-10 py-7">
       {playerDetails && (
         <>
@@ -269,6 +274,7 @@ const Player_Profiles = () => {
         </>
       )}
     </div>
+  </>
   );
 };
 

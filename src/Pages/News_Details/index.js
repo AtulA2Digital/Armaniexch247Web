@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { postAPIHandler } from "../../Api/api";
+import { Helmet } from "react-helmet";
 
 const News_Details = () => {
   const { newsId } = useParams();
@@ -20,6 +21,10 @@ const News_Details = () => {
   }, [newsId]);
   return (
     <>
+      <Helmet>
+        <title>Latest Sports News & Updates | Detailed Insights at Armaniexch247news</title>
+        <meta name="description" content="Stay informed with Armaniexch247news for in-depth details and breaking news on sports. Get the latest updates, analysis, and reports on all your favorite games." />
+      </Helmet>
       {newsDetails.length !== 0 && (
         <div className="xl:w-[90%] w-[96%] mx-auto px-2 md:mt-10 py-7">
           <div className="mb-4">

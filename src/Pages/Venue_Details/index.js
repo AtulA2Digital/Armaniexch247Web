@@ -11,6 +11,7 @@ import Opened from "../../Images/Cricket-Pages/Grounds/opened.png";
 import Profile from "../../Images/Cricket-Pages/Grounds/profile.png";
 import Timezone from "../../Images/Cricket-Pages/Grounds/timezone.png";
 import Floodlights from "../../Images/Cricket-Pages/Grounds/floodlight.png";
+import { Helmet } from "react-helmet";
 
 const Venue_Details = () => {
   const { venueId } = useParams();
@@ -31,6 +32,10 @@ const Venue_Details = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Venue Details & Insights | Explore Sports Venues at Armaniexch247news</title>
+        <meta name="description" content="Find each of the information about the venue at Armaniexch247news. Get in-depth information, history, and key features of top sports venues around the world." />
+      </Helmet>
       {venueDetails.length !== 0 && <div className="xl:w-[90%] w-[96%] mx-auto px-2 md:mt-10 py-7">
         <div className="bg-gradient-to-r from-[#39441d] to-[#141815] rounded-lg py-3 mb-5 sm:w-[90%] mx-auto">
           <p className="text-white md:text-[30px] text-[24px] font-semibold px-4 flex items-center justify-center gap-x-4 mb-0">
